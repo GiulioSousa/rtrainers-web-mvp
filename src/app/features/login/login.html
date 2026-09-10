@@ -1,10 +1,11 @@
 <main class="login">
 
-  <!--
-    Espaco reservado para public/logo-brasao.svg, no tamanho final do brasao.
-    Trocar por <img> quando o SVG chegar: o layout ja esta dimensionado.
-  -->
-  <div class="login__marca" role="img" aria-label="Studio R Trainers - Elite Fitness"></div>
+  <img
+    class="login__marca"
+    src="logo-brasao.svg"
+    alt="Studio R Trainers - Elite Fitness"
+    width="204"
+    height="201" />
 
   <form class="cartao" [formGroup]="formulario" (ngSubmit)="enviar()" novalidate>
 

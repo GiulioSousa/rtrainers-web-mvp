@@ -15,13 +15,14 @@
   padding: var(--espaco-6);
 }
 
-/* Reservado para o brasao. Circular, entao usa radius e nao chanfro. */
+/*
+ * Brasao em SVG, sem fundo embutido: nao leva chanfro nem radius, porque a
+ * arte ja e circular e transparente. Tamanho natural do arquivo (204x201).
+ */
 .login__marca {
   flex-shrink: 0;
-  width: 230px;
-  height: 230px;
-  border: 1px dashed var(--cor-borda);
-  border-radius: var(--radius-full);
+  width: 204px;
+  height: auto;
 }
 
 .cartao {
@@ -47,19 +48,32 @@
   margin-bottom: var(--espaco-1);
   padding-left: var(--espaco-1);
   font-size: var(--texto-xs);
+  /* Padrao OCULTO. O espaco continua reservado, entao nao ha salto de layout. */
+  opacity: 0;
   color: var(--cor-texto-secundario);
   transition: opacity 120ms ease, color 120ms ease;
 }
 
-/* Repousado: rotulo some, placeholder assume. Espaco fica reservado. */
-.campo:has(input:placeholder-shown:not(:focus)) .campo__rotulo {
-  opacity: 0;
+/*
+ * Logica POSITIVA: tres condicoes revelam o rotulo.
+ * A versao anterior dependia da AUSENCIA de uma regra de repouso, e por isso
+ * o rotulo de erro ficava invisivel num campo vazio e sem foco — defeito
+ * medido em tela, nao suposto. Logica por ausencia quebra a cada condicao nova.
+ */
+.campo:has(input:focus) .campo__rotulo,
+.campo:has(input:not(:placeholder-shown)) .campo__rotulo,
+.campo:has(input.ng-touched.ng-invalid) .campo__rotulo {
+  opacity: 1;
 }
 
 .campo:has(input:focus) .campo__rotulo {
   color: var(--cor-primaria);
 }
 
+/*
+ * Erro vence foco sem depender de ordem: :has(input.ng-touched.ng-invalid)
+ * tem argumento de especificidade 0,2,1 contra 0,1,1 de :has(input:focus).
+ */
 .campo:has(input.ng-touched.ng-invalid) .campo__rotulo {
   color: var(--cor-erro);
 }
