@@ -21,14 +21,22 @@
   filter: drop-shadow(0 4px 16px $cor);
 }
 
-// Componente outline (botao-nota, chip): clip-path corta border pela metade.
-// O externo faz o papel da borda, o interno faz o preenchimento.
+// Corte do elemento INTERNO de um contorno chanfrado. Descontar a espessura
+// inteira (corte - espessura) deixa a faixa diagonal com espessura/√2: 2px
+// viram 1.41px. Para a diagonal ter a mesma espessura das retas, o interno
+// perde espessura × (2 − √2).
+@function corte-interno($corte, $espessura) {
+  @return $corte - $espessura * 0.5858;
+}
+
+// Componente outline (botao-nota, chip, card-turno): clip-path corta border
+// pela metade. O externo faz o papel da borda, o interno faz o preenchimento.
 @mixin chanfro-contorno($corte: 16px, $espessura: 2px) {
   @include chanfro($corte);
   padding: $espessura;
 
   > * {
-    @include chanfro($corte - $espessura);
+    @include chanfro(corte-interno($corte, $espessura));
     height: 100%;
   }
 }

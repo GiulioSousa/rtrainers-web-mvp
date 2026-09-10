@@ -54,7 +54,7 @@
 }
 
 .campo__caixa input {
-  @include chanfro(14px);
+  @include chanfro(corte-interno(16px, 2px));
 
   flex: 1;
   min-width: 0;
