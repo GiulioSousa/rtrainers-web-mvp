@@ -73,12 +73,12 @@ export class PaginaLogin {
     }
 
     if (erro.status === 0) {
-      this.mensagemErro.set('Nao foi possivel conectar ao servidor.');
+      this.mensagemErro.set('Não foi possível conectar ao servidor.');
       return;
     }
 
     if (erro.status === 503) {
-      this.mensagemErro.set('Servico temporariamente indisponivel.');
+      this.mensagemErro.set('Serviço temporariamente indisponível.');
       return;
     }
 
