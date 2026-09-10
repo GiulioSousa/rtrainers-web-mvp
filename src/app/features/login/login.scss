@@ -1,0 +1,235 @@
+@use 'chanfro' as *;
+
+:host {
+  display: block;
+  min-height: 100dvh;
+}
+
+.login {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--espaco-8);
+  min-height: 100dvh;
+  padding: var(--espaco-6);
+}
+
+/* Reservado para o brasao. Circular, entao usa radius e nao chanfro. */
+.login__marca {
+  flex-shrink: 0;
+  width: 230px;
+  height: 230px;
+  border: 1px dashed var(--cor-borda);
+  border-radius: var(--radius-full);
+}
+
+.cartao {
+  @include chanfro(48px);
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-4);
+  width: 100%;
+  max-width: 342px;
+  padding: var(--espaco-8) var(--espaco-5);
+  background: var(--cor-superficie-elevada);
+}
+
+/* ---------- Campo ---------- */
+
+.campo {
+  display: flex;
+  flex-direction: column;
+}
+
+.campo__rotulo {
+  margin-bottom: var(--espaco-1);
+  padding-left: var(--espaco-1);
+  font-size: var(--texto-xs);
+  color: var(--cor-texto-secundario);
+  transition: opacity 120ms ease, color 120ms ease;
+}
+
+/* Repousado: rotulo some, placeholder assume. Espaco fica reservado. */
+.campo:has(input:placeholder-shown:not(:focus)) .campo__rotulo {
+  opacity: 0;
+}
+
+.campo:has(input:focus) .campo__rotulo {
+  color: var(--cor-primaria);
+}
+
+.campo:has(input.ng-touched.ng-invalid) .campo__rotulo {
+  color: var(--cor-erro);
+}
+
+/*
+ * O externo faz o papel da BORDA. clip-path corta border pela metade nas
+ * diagonais, entao a borda e um fundo colorido com padding.
+ */
+.campo__caixa {
+  @include chanfro(16px);
+
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 48px;
+  padding: 2px;
+  background: var(--cor-borda);
+  transition: background 120ms ease;
+}
+
+.campo__caixa:has(input:focus) {
+  background: var(--cor-primaria);
+}
+
+.campo:has(input.ng-touched.ng-invalid) .campo__caixa {
+  background: var(--cor-erro);
+}
+
+.campo__caixa input {
+  @include chanfro(14px);
+
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  /* padding-left extra: o texto nao pode invadir a area do chanfro */
+  padding: 0 var(--espaco-4) 0 var(--espaco-5);
+  border: 0;
+  background: var(--cor-campo);
+  color: var(--cor-texto-primario);
+  font-size: var(--texto-sm);
+  outline: none;
+}
+
+.campo__caixa input::placeholder {
+  color: var(--cor-texto-secundario);
+}
+
+.campo__olho {
+  position: absolute;
+  right: var(--espaco-3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--cor-texto-secundario);
+  cursor: pointer;
+}
+
+.campo__olho:hover {
+  color: var(--cor-texto-primario);
+}
+
+/* ---------- Mensagens ---------- */
+
+.erro,
+.aviso {
+  margin: 0;
+  font-size: var(--texto-sm);
+}
+
+.erro {
+  color: var(--cor-erro);
+}
+
+/* Sessao expirada nao e falha de credencial: alerta, nao erro — B9. */
+.aviso {
+  color: var(--cor-alerta);
+}
+
+/* ---------- Acao ---------- */
+
+/*
+ * O glow vai no PAI: clip-path recorta box-shadow junto, entao a sombra sai
+ * por drop-shadow, que acompanha a silhueta chanfrada.
+ */
+.acao {
+  display: flex;
+  justify-content: center;
+  filter: drop-shadow(0 4px 16px rgb(252 110 32 / 0.3));
+}
+
+.botao {
+  @include chanfro(16px);
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 100px;
+  height: 48px;
+  padding: 0 var(--espaco-6);
+  border: 0;
+  background: var(--cor-primaria);
+  color: var(--cor-texto-primario);
+  font-size: var(--texto-md);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.botao:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--cor-primaria) 84%, var(--cor-acento));
+}
+
+.botao:active:not(:disabled) {
+  background: color-mix(in srgb, var(--cor-primaria) 76%, var(--cor-acento));
+}
+
+.botao:disabled {
+  background: var(--cor-desabilitado);
+  color: rgb(255 255 255 / 0.6);
+  cursor: default;
+}
+
+/* Arco de 270 graus: tres lados coloridos, um transparente. */
+.botao__spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--cor-texto-primario);
+  border-right-color: transparent;
+  border-radius: var(--radius-full);
+  animation: girar 800ms linear infinite;
+}
+
+@keyframes girar {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .botao__spinner {
+    animation-duration: 2400ms;
+  }
+}
+
+/* ---------- Link ---------- */
+
+.link {
+  align-self: center;
+  color: var(--cor-primaria);
+  font-size: var(--texto-sm);
+  text-decoration: none;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+.link:active {
+  color: var(--cor-acento);
+}
+
+.apenas-leitor {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}

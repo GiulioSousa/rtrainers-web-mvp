@@ -1,0 +1,74 @@
+<main class="login">
+
+  <!--
+    Espaco reservado para public/logo-brasao.svg, no tamanho final do brasao.
+    Trocar por <img> quando o SVG chegar: o layout ja esta dimensionado.
+  -->
+  <div class="login__marca" role="img" aria-label="Studio R Trainers - Elite Fitness"></div>
+
+  <form class="cartao" [formGroup]="formulario" (ngSubmit)="enviar()" novalidate>
+
+    <div class="campo">
+      <label class="campo__rotulo" for="email">E-mail</label>
+      <div class="campo__caixa">
+        <input
+          id="email"
+          type="email"
+          formControlName="email"
+          placeholder="E-mail"
+          autocomplete="email"
+          inputmode="email" />
+      </div>
+    </div>
+
+    <div class="campo">
+      <label class="campo__rotulo" for="senha">Senha</label>
+      <div class="campo__caixa">
+        <input
+          id="senha"
+          [type]="senhaVisivel() ? 'text' : 'password'"
+          formControlName="senha"
+          placeholder="Senha"
+          autocomplete="current-password" />
+
+        <button
+          type="button"
+          class="campo__olho"
+          (click)="alternarVisibilidadeSenha()"
+          [attr.aria-label]="senhaVisivel() ? 'Ocultar senha' : 'Mostrar senha'">
+          <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+            <path
+              d="M1.8 12S5.6 5.8 12 5.8 22.2 12 22.2 12 18.4 18.2 12 18.2 1.8 12 1.8 12Z"
+              fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" />
+            <circle cx="12" cy="12" r="3.1" fill="none" stroke="currentColor" stroke-width="1.8" />
+            @if (senhaVisivel()) {
+              <line x1="4" y1="20" x2="20" y2="4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+            }
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    @if (sessaoExpirada()) {
+      <p class="aviso">Sua sessao expirou. Entre novamente.</p>
+    }
+
+    @if (mensagemErro(); as erro) {
+      <p class="erro" role="alert">{{ erro }}</p>
+    }
+
+    <div class="acao">
+      <button class="botao" type="submit" [disabled]="carregando()">
+        @if (carregando()) {
+          <span class="botao__spinner" aria-hidden="true"></span>
+          <span class="apenas-leitor">Entrando</span>
+        } @else {
+          Entrar
+        }
+      </button>
+    </div>
+
+    <a class="link" routerLink="/primeiro-acesso">Primeiro acesso</a>
+
+  </form>
+</main>
