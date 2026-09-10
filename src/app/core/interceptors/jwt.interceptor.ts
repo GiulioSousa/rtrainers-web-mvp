@@ -19,11 +19,14 @@ export const jwtInterceptor: HttpInterceptorFn = (requisicao, proximo) => {
   return proximo(requisicaoFinal).pipe(
     catchError((erro: HttpErrorResponse) => {
       /*
-       * 401 e 403 em rota protegida significam sessao ausente ou expirada.
-       * Trata os dois porque o status real ainda nao foi confirmado no Postman
-       * (B9): o SegurancaConfig nao declara exceptionHandling.
+       * Sessao ausente ou expirada em rota protegida.
+       * A API devolve 403 — confirmado contra a API em execucao (B9). O 401
+       * segue tratado de proposito: se um dia o SegurancaConfig declarar um
+       * entry point de 401, este interceptor continua correto sem mudanca.
        * Rotas /auth/ ficam de fora de proposito — la o 403 tem outro
        * significado: e o sinal de primeiro acesso.
+       * Depende do CORS na cadeia do Spring Security (B11): sem ele o 403
+       * chegava aqui como status 0 e nenhum redirecionamento acontecia.
        */
       if (!ehRotaPublica && (erro.status === 401 || erro.status === 403)) {
         autenticacao.encerrarSessao();
