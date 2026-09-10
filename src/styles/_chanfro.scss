@@ -1,0 +1,34 @@
+// Chanfro — corte a 45° nos cantos topo-esquerda e baixo-direita.
+//
+// USE PX, NUNCA %. Percentual em clip-path resolve por eixo (X% da largura,
+// Y% da altura): num elemento não quadrado o corte deixa de ser 45°. O chip
+// de 168x56 com 10% sairia dx=16.8 / dy=5.6 em vez de 16 / 16.
+
+@mixin chanfro($corte: 16px) {
+  clip-path: polygon(
+    #{$corte} 0,
+    100% 0,
+    100% calc(100% - #{$corte}),
+    calc(100% - #{$corte}) 100%,
+    0 100%,
+    0 #{$corte}
+  );
+}
+
+// clip-path recorta box-shadow junto — o glow laranja do design sumiria.
+// Aplique este mixin no elemento PAI: drop-shadow acompanha a silhueta.
+@mixin chanfro-glow($cor: rgba(252, 110, 32, 0.3)) {
+  filter: drop-shadow(0 4px 16px $cor);
+}
+
+// Componente outline (botao-nota, chip): clip-path corta border pela metade.
+// O externo faz o papel da borda, o interno faz o preenchimento.
+@mixin chanfro-contorno($corte: 16px, $espessura: 2px) {
+  @include chanfro($corte);
+  padding: $espessura;
+
+  > * {
+    @include chanfro($corte - $espessura);
+    height: 100%;
+  }
+}

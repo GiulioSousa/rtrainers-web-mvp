@@ -1,0 +1,63 @@
+// RTrainers — tokens canônicos.
+// Cores de superfície e valores de chanfro foram MEDIDOS nos prints em
+// context/telas/, não estimados. Ver design-system.md para a procedência.
+
+:root {
+  // Cores — superfícies em três níveis: quanto mais aninhado, mais claro
+  --cor-primaria: #FC6E20;
+  --cor-fundo: #1B1B1B;
+  --cor-superficie: #2E2E2E;           // cabeçalho, card-turno, card-grid-nota, card de conteúdo
+  --cor-superficie-elevada: #414141;   // card de formulário (login, primeiro acesso)
+  --cor-campo: #505050;                // fill de input
+  --cor-superficie-destaque: #4C260E;  // card de aluno (agenda e totem)
+  --cor-acento: #FFE7D0;
+  --cor-borda: #3D3D3D;
+  --cor-texto-primario: #FFFFFF;
+  --cor-texto-secundario: #A0A0A0;
+  --cor-sucesso: #22C55E;
+  --cor-erro: #EF4444;
+  --cor-alerta: #EAB308;
+  --cor-desabilitado: #4A4A4A;
+
+  // Tipografia — famílias
+  --fonte-display: 'Tomorrow', sans-serif;   // peso 700
+  --fonte-interface: 'Inter', sans-serif;    // pesos 400 e 600
+  --fonte-marca: 'Iceland', sans-serif;      // wordmark do cabeçalho
+
+  // Tipografia — escala
+  --texto-xs: 0.75rem;
+  --texto-sm: 0.875rem;
+  --texto-md: 1rem;
+  --texto-lg: 1.25rem;
+  --texto-xl: 1.5rem;
+  --texto-2xl: 2rem;
+  --texto-totem: 3rem;
+  --texto-totem-lg: 4rem;
+
+  // Espaçamento
+  --espaco-1: 0.25rem;
+  --espaco-2: 0.5rem;
+  --espaco-3: 0.75rem;
+  --espaco-4: 1rem;
+  --espaco-5: 1.25rem;
+  --espaco-6: 1.5rem;
+  --espaco-8: 2rem;
+  --espaco-10: 2.5rem;
+  --espaco-12: 3rem;
+  --espaco-16: 4rem;
+
+  // Chanfro — corte a 45°, escala discreta de três degraus (múltiplos de 16)
+  --chanfro-sm: 16px;   // input, botão, botao-nota, chip, card aluno-colapsado
+  --chanfro-md: 32px;   // card aluno-totem, card-grid-nota
+  --chanfro-lg: 48px;   // card de formulário, card-turno, card de confirmação
+
+  // Radius — apenas elementos circulares. A escala sm/md/lg/xl foi removida:
+  // chanfro substitui border-radius em todo componente retangular.
+  --radius-full: 9999px;
+
+  // Sombras
+  --sombra-sm: 0 1px 3px rgba(0, 0, 0, 0.4);
+  --sombra-md: 0 4px 12px rgba(0, 0, 0, 0.5);
+  --sombra-lg: 0 8px 24px rgba(0, 0, 0, 0.6);
+  --sombra-primaria: 0 4px 16px rgba(252, 110, 32, 0.3);
+}

@@ -1,0 +1,38 @@
+// Tokens canonicos do RTrainers. Resolvido via stylePreprocessorOptions.includePaths
+// em angular.json, que aponta para src/styles.
+@use 'tokens';
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+}
+
+body {
+  background: var(--cor-fundo);
+  color: var(--cor-texto-primario);
+  font-family: var(--fonte-interface);
+  font-size: var(--texto-md);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
+  font-family: var(--fonte-display);
+  font-weight: 700;
+}
+
+button,
+input {
+  font-family: inherit;
+}
