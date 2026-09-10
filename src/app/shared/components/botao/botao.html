@@ -1,0 +1,22 @@
+<button
+  class="botao"
+  [class.botao--xl]="tamanho() === 'xl'"
+  [class.botao--carregando]="carregando()"
+  [type]="tipo()"
+  [disabled]="desabilitado()"
+  [attr.aria-busy]="carregando() || null"
+  [attr.aria-disabled]="carregando() || null">
+
+  <!--
+    O rotulo continua no DOM durante o carregamento, so fica invisivel:
+    assim a largura do botao nao pula quando o spinner entra.
+  -->
+  <span class="botao__rotulo" [class.botao__rotulo--oculto]="carregando()">
+    <ng-content></ng-content>
+  </span>
+
+  @if (carregando()) {
+    <span class="botao__spinner" aria-hidden="true"></span>
+    <span class="apenas-leitor">{{ textoCarregando() }}</span>
+  }
+</button>

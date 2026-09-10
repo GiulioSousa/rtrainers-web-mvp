@@ -1,0 +1,118 @@
+@use 'chanfro' as *;
+
+:host {
+  display: block;
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+}
+
+.campo__rotulo {
+  margin-bottom: var(--espaco-1);
+  padding-left: var(--espaco-1);
+  font-size: var(--texto-xs);
+  /* Padrao OCULTO. O espaco continua reservado: sem salto de layout. */
+  opacity: 0;
+  color: var(--cor-texto-secundario);
+  transition: opacity 120ms ease, color 120ms ease;
+}
+
+/*
+ * Logica POSITIVA: foco, campo preenchido e erro revelam o rotulo.
+ * :focus-within e nao :has(input:focus): clicar no olho da senha move o foco
+ * para o botao, e com :focus-within o botao conta como dentro do campo.
+ */
+.campo:focus-within .campo__rotulo,
+.campo--preenchido .campo__rotulo {
+  opacity: 1;
+}
+
+.campo:focus-within .campo__rotulo {
+  color: var(--cor-primaria);
+}
+
+/*
+ * O externo faz o papel da BORDA: clip-path corta border pela metade nas
+ * diagonais, entao a borda e um fundo colorido com padding.
+ */
+.campo__caixa {
+  @include chanfro(16px);
+
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 48px;
+  padding: 2px;
+  background: var(--cor-borda);
+  transition: background 120ms ease;
+}
+
+.campo__caixa:focus-within {
+  background: var(--cor-primaria);
+}
+
+.campo__caixa input {
+  @include chanfro(14px);
+
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  /* padding-left extra: o texto nao pode invadir a area do chanfro */
+  padding: 0 var(--espaco-4) 0 var(--espaco-5);
+  border: 0;
+  background: var(--cor-campo);
+  color: var(--cor-texto-primario);
+  font-family: inherit;
+  font-size: var(--texto-sm);
+  outline: none;
+}
+
+/* Senha longa nao pode correr por baixo do icone do olho. */
+.campo--senha .campo__caixa input {
+  padding-right: 48px;
+}
+
+.campo__caixa input::placeholder {
+  color: var(--cor-texto-secundario);
+}
+
+.campo--desabilitado .campo__caixa input {
+  background: var(--cor-desabilitado);
+  color: rgb(255 255 255 / 0.6);
+}
+
+.campo__olho {
+  position: absolute;
+  right: var(--espaco-3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--cor-texto-secundario);
+  cursor: pointer;
+}
+
+.campo__olho:hover {
+  color: var(--cor-texto-primario);
+}
+
+/*
+ * ESTADO DE ERRO — por ultimo, de proposito. As classes ng-touched e ng-invalid
+ * sao aplicadas pelo Angular no host. A regra de rotulo empata em
+ * especificidade com a de foco (0,5,0 compilada), entao vence pela ordem:
+ * erro precisa vencer foco.
+ */
+:host(.ng-touched.ng-invalid) .campo__rotulo {
+  opacity: 1;
+  color: var(--cor-erro);
+}
+
+:host(.ng-touched.ng-invalid) .campo__caixa {
+  background: var(--cor-erro);
+}

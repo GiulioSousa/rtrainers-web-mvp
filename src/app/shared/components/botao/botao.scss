@@ -1,0 +1,111 @@
+@use 'chanfro' as *;
+
+/*
+ * O glow vai no HOST: clip-path recorta box-shadow junto, entao a sombra sai
+ * por drop-shadow no elemento pai, que acompanha a silhueta chanfrada.
+ */
+:host {
+  display: inline-flex;
+  filter: drop-shadow(0 4px 16px rgb(252 110 32 / 0.3));
+  transition: filter 120ms ease;
+}
+
+/* Active: sombra removida, conforme o design system. :active propaga ao host. */
+:host(:active) {
+  filter: none;
+}
+
+:host(.botao--desabilitado) {
+  filter: none;
+}
+
+.botao {
+  @include chanfro(16px);
+
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 100px;
+  height: 48px;
+  padding: 0 var(--espaco-6);
+  border: 0;
+  background: var(--cor-primaria);
+  color: var(--cor-texto-primario);
+  font-family: inherit;
+  font-size: var(--texto-md);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.botao--xl {
+  min-width: 120px;
+  height: 64px;
+  font-size: var(--texto-lg);
+}
+
+.botao:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--cor-primaria) 84%, var(--cor-acento));
+}
+
+.botao:active:not(:disabled) {
+  background: color-mix(in srgb, var(--cor-primaria) 76%, var(--cor-acento));
+}
+
+/*
+ * clip-path recorta o outline de foco junto com o resto: o anel padrao do
+ * navegador some. O foco por teclado precisa de outro sinal visivel.
+ */
+.botao:focus-visible {
+  outline: none;
+  background: color-mix(in srgb, var(--cor-primaria) 68%, var(--cor-acento));
+}
+
+.botao:disabled {
+  background: var(--cor-desabilitado);
+  color: rgb(255 255 255 / 0.6);
+  cursor: default;
+}
+
+/* Mantem o fill laranja; apenas deixa de aceitar clique. */
+.botao--carregando {
+  pointer-events: none;
+}
+
+.botao__rotulo--oculto {
+  visibility: hidden;
+}
+
+/* Arco de 270 graus sobreposto ao rotulo invisivel. */
+.botao__spinner {
+  position: absolute;
+  inset: 0;
+  width: 20px;
+  height: 20px;
+  margin: auto;
+  border: 2px solid var(--cor-texto-primario);
+  border-right-color: transparent;
+  border-radius: var(--radius-full);
+  animation: girar 800ms linear infinite;
+}
+
+@keyframes girar {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .botao__spinner {
+    animation-duration: 2400ms;
+  }
+}
+
+.apenas-leitor {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}

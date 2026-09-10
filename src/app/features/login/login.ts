@@ -5,10 +5,12 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 
 import { AutenticacaoService } from '../../core/services/autenticacao.service';
 import { SinalPrimeiroAcesso } from '../../models/autenticacao.model';
+import { Botao } from '../../shared/components/botao/botao';
+import { Campo } from '../../shared/components/campo/campo';
 
 @Component({
   selector: 'app-login',
-  imports: [ReactiveFormsModule, RouterLink],
+  imports: [ReactiveFormsModule, RouterLink, Botao, Campo],
   templateUrl: './login.html',
   styleUrl: './login.scss'
 })
@@ -26,16 +28,11 @@ export class PaginaLogin {
 
   readonly carregando = signal(false);
   readonly mensagemErro = signal<string | null>(null);
-  readonly senhaVisivel = signal(false);
 
   /** Vem do jwtInterceptor quando a sessao expira em rota protegida — B9. */
   readonly sessaoExpirada = signal(
     this.rota.snapshot.queryParamMap.get('sessaoExpirada') === 'true'
   );
-
-  alternarVisibilidadeSenha(): void {
-    this.senhaVisivel.update(visivel => !visivel);
-  }
 
   enviar(): void {
     if (this.carregando()) {
