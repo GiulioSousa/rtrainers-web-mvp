@@ -36,3 +36,14 @@ button,
 input {
   font-family: inherit;
 }
+
+// Texto so para leitor de tela. Global porque Botao e Carregando anunciam
+// estado sem texto visivel.
+.apenas-leitor {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}

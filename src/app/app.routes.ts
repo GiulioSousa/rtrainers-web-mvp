@@ -20,11 +20,11 @@ export const routes: Routes = [
   },
   {
     /*
-     * Provisorio: gravar PSR/PSE exige nomeAluno, horario, data e
-     * nomeProfessor — o nome sozinho nao basta. Como passar o resto e decisao
-     * da tela de Detalhe.
+     * A chave inteira do aluno na agenda vai na URL: gravar PSR/PSE exige
+     * data, horario e nome (o professor vem da sessao), e o Detalhe precisa
+     * se reconstruir quando a pagina e recarregada. Data em ISO, sem barras.
      */
-    path: 'aluno/:nomeAluno',
+    path: 'agenda/:data/:horario/:nomeAluno',
     canActivate: [autenticacaoGuard],
     loadComponent: () =>
       import('./features/detalhe-aluno/detalhe-aluno').then(m => m.PaginaDetalheAluno)

@@ -1,0 +1,67 @@
+@use 'chanfro' as *;
+
+:host {
+  display: block;
+}
+
+/*
+ * O link e o proprio card: area de toque inteira (~70px, acima dos 48 minimos).
+ * Padding lateral de 20px medido no print; o texto fica fora do chanfro.
+ */
+.card-aluno {
+  @include chanfro(16px);
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-2);
+  padding: var(--espaco-2) var(--espaco-5);
+  background: var(--cor-superficie-destaque);
+  color: var(--cor-texto-primario);
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: background 120ms ease;
+}
+
+.card-aluno__nome {
+  font-size: var(--texto-md);
+  font-weight: 600;
+  /* Nome completo quebra linha em vez de cortar: o professor procura a pessoa. */
+  overflow-wrap: anywhere;
+}
+
+/* Tres colunas: horario no centro e estagio a direita, como no doc (D2). */
+.card-aluno__linha {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: baseline;
+  gap: var(--espaco-2);
+  color: var(--cor-texto-secundario);
+  font-size: var(--texto-sm);
+}
+
+.card-aluno__horario {
+  grid-column: 2;
+}
+
+.card-aluno__estagio {
+  grid-column: 3;
+  justify-self: end;
+  text-align: right;
+}
+
+/* Hover so onde existe ponteiro: no toque ele gruda depois do clique. */
+@media (hover: hover) {
+  .card-aluno:hover {
+    background: color-mix(in srgb, var(--cor-superficie-destaque) 88%, var(--cor-acento));
+  }
+}
+
+.card-aluno:active {
+  background: color-mix(in srgb, var(--cor-superficie-destaque) 80%, var(--cor-acento));
+}
+
+/* clip-path recorta o outline: o foco por teclado puxa o fundo para o laranja. */
+.card-aluno:focus-visible {
+  outline: none;
+  background: color-mix(in srgb, var(--cor-superficie-destaque) 70%, var(--cor-primaria));
+}

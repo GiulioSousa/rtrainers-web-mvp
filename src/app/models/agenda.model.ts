@@ -14,7 +14,10 @@ export interface Agenda {
    */
   diaSemana: string;
   estimuloTreino: string;
-  /** Formato dd/MM/yyyy. */
+  /**
+   * Texto cru da planilha em d/M/yyyy — com ou sem zero a esquerda, a API
+   * aceita os dois ao filtrar a janela. Normalizar antes de comparar.
+   */
   data: string;
   /** null quando o aluno da agenda nao tem ficha na aba de anamnese. */
   aluno: Aluno | null;

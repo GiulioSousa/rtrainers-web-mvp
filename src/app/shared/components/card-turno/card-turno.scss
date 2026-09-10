@@ -1,0 +1,40 @@
+@use 'chanfro' as *;
+
+/*
+ * Contorno de 1px medido no print. clip-path corta border na diagonal, entao
+ * o host faz a borda (fundo claro + padding) e o .turno faz o preenchimento.
+ */
+:host {
+  @include chanfro-contorno(48px, 1px);
+
+  display: block;
+  background: var(--cor-contorno);
+}
+
+.turno {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-4);
+  /*
+   * Fundo de 40px, e nao 16: com 16 o chanfro de 48px do turno cortaria a
+   * ponta do ultimo card. 40 deixa a folga na diagonal igual aos 20px das
+   * laterais — e e o valor medido no print.
+   */
+  padding: var(--espaco-4) var(--espaco-5) var(--espaco-10);
+  background: var(--cor-superficie);
+}
+
+/* Subtitulo (Inter 600), e nao Tomorrow: sobrescreve o h2 global. */
+.turno__titulo {
+  font-family: var(--fonte-interface);
+  font-size: var(--texto-lg);
+  font-weight: 600;
+  line-height: 1.2;
+  text-align: center;
+}
+
+.turno__lista {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-3);
+}

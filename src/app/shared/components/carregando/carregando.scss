@@ -1,0 +1,34 @@
+:host {
+  display: flex;
+  flex: 1;
+}
+
+.carregando {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  min-height: 160px;
+}
+
+/* Mesmo arco de 270 graus do spinner do Botao, em 48px e laranja. */
+.carregando__spinner {
+  width: 48px;
+  height: 48px;
+  border: 4px solid var(--cor-primaria);
+  border-right-color: transparent;
+  border-radius: var(--radius-full);
+  animation: girar 800ms linear infinite;
+}
+
+@keyframes girar {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .carregando__spinner {
+    animation-duration: 2400ms;
+  }
+}

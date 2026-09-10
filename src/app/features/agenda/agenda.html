@@ -1,0 +1,35 @@
+<app-cabecalho />
+
+<main class="agenda">
+  @switch (estado()) {
+
+    @case ('carregando') {
+      <app-carregando rotulo="Carregando agenda" />
+    }
+
+    @case ('erro') {
+      <div class="agenda__situacao">
+        <p class="agenda__mensagem agenda__mensagem--erro" role="alert">{{ mensagemErro() }}</p>
+        <app-botao (click)="carregar()">Tentar novamente</app-botao>
+      </div>
+    }
+
+    @case ('pronta') {
+      @for (grupo of grupos(); track grupo.chave) {
+        <app-card-turno [titulo]="grupo.titulo">
+          @for (item of grupo.itens; track $index) {
+            <app-card-aluno
+              [nome]="item.nomeAluno"
+              [horario]="formatarHorario(item.horario)"
+              [estagio]="estagioDe(item)"
+              [rota]="rotaDetalhe(item)" />
+          }
+        </app-card-turno>
+      } @empty {
+        <p class="agenda__situacao agenda__mensagem">
+          Nenhum aluno agendado para os próximos 7 dias.
+        </p>
+      }
+    }
+  }
+</main>

@@ -1,0 +1,27 @@
+:host {
+  display: block;
+}
+
+/* Medido no print: 56px de altura, marca a 12px da borda. */
+.cabecalho {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--espaco-4);
+  height: 56px;
+  padding: 0 var(--espaco-3);
+  background: var(--cor-superficie);
+}
+
+.cabecalho__marca {
+  flex-shrink: 0;
+}
+
+/* Nome longo corta com reticencias em vez de empurrar a marca. */
+.cabecalho__professor {
+  min-width: 0;
+  overflow: hidden;
+  font-size: var(--texto-md);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
