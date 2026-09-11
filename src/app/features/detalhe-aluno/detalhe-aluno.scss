@@ -1,0 +1,179 @@
+@use 'chanfro' as *;
+
+:host {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+}
+
+/* Card a 48px do cabecalho, medido no print. */
+.detalhe {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  width: 100%;
+  max-width: 480px;
+  margin-inline: auto;
+  padding: var(--espaco-12) var(--espaco-4) var(--espaco-8);
+}
+
+/* Carregamento, erro e aluno ausente ocupam o espaco livre, centralizados. */
+.detalhe__situacao {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--espaco-4);
+  text-align: center;
+}
+
+.detalhe__mensagem {
+  margin: 0;
+  color: var(--cor-texto-secundario);
+  font-size: var(--texto-sm);
+}
+
+.detalhe__mensagem--erro {
+  color: var(--cor-erro);
+}
+
+/* ---------- Card ---------- */
+
+/* Mesmo contorno de 1px e chanfro de 48px do Card-Turno, medidos no print. */
+.cartao {
+  @include chanfro-contorno(48px, 1px);
+
+  background: var(--cor-contorno);
+}
+
+.cartao__interno {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-4);
+  padding: var(--espaco-4) var(--espaco-5) var(--espaco-8);
+  background: var(--cor-superficie);
+}
+
+/* Subtitulo (Inter 600), e nao Tomorrow: sobrescreve o h1 global. */
+.cartao__titulo {
+  font-family: var(--fonte-interface);
+  font-size: var(--texto-lg);
+  font-weight: 600;
+  line-height: 1.2;
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+
+.cartao__divisoria {
+  width: 100%;
+  height: 1px;
+  margin: 0;
+  border: 0;
+  background: var(--cor-borda);
+}
+
+/* ---------- Ficha ---------- */
+
+/* Gap uniforme de 16px entre os campos: regra do doc (o print usa ~11px). */
+.ficha {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-4);
+  margin: 0;
+  font-size: var(--texto-sm);
+}
+
+.ficha__campo dt {
+  color: var(--cor-texto-secundario);
+}
+
+/* pre-line: observacoes com quebra de linha na planilha continuam quebradas. */
+.ficha__campo dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+  white-space: pre-line;
+}
+
+/* Estagio e sempre curto: rotulo e valor na mesma linha. */
+.ficha__campo--horizontal {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--espaco-4);
+}
+
+.ficha__ausente {
+  margin: 0;
+  color: var(--cor-texto-secundario);
+  font-size: var(--texto-sm);
+  text-align: center;
+}
+
+/* ---------- PSR e PSE ---------- */
+
+/*
+ * 20px da divisoria aos botoes, 8px dos botoes aos inputs e 20px dos inputs
+ * ao Salvar, todos medidos no print. O gap do card da 16; o resto vem daqui.
+ */
+.sessao {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-5);
+  padding-top: var(--espaco-1);
+}
+
+.notas {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.nota {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--espaco-2);
+}
+
+/* Mesma largura do botao, como no print. */
+.nota__campo {
+  width: 100px;
+}
+
+/* Label/Destaque: o valor gravado, abaixo do botao correspondente. */
+.nota__valor {
+  margin: 0;
+  font-size: var(--texto-sm);
+  font-weight: 600;
+}
+
+.acao {
+  display: flex;
+  justify-content: center;
+}
+
+.retorno {
+  margin: 0;
+  color: var(--cor-sucesso);
+  font-size: var(--texto-sm);
+  text-align: center;
+}
+
+.retorno--erro {
+  color: var(--cor-erro);
+}
+
+/* ---------- Link ---------- */
+
+.link {
+  color: var(--cor-primaria);
+  font-size: var(--texto-sm);
+  text-decoration: none;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+.link:active {
+  color: var(--cor-acento);
+}

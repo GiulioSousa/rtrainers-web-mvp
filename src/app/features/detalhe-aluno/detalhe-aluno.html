@@ -1,0 +1,98 @@
+<app-cabecalho rotaVoltar="/agenda" />
+
+<main class="detalhe">
+  @switch (estado()) {
+
+    @case ('carregando') {
+      <app-carregando rotulo="Carregando aluno" />
+    }
+
+    @case ('erro') {
+      <div class="detalhe__situacao">
+        <p class="detalhe__mensagem detalhe__mensagem--erro" role="alert">{{ mensagemErro() }}</p>
+        <app-botao (click)="carregar()">Tentar novamente</app-botao>
+      </div>
+    }
+
+    @case ('ausente') {
+      <div class="detalhe__situacao">
+        <p class="detalhe__mensagem">Este aluno não está na sua agenda dos próximos 7 dias.</p>
+        <a class="link" routerLink="/agenda">Voltar para a agenda</a>
+      </div>
+    }
+
+    @case ('pronto') {
+      @if (item(); as item) {
+        <section class="cartao">
+          <div class="cartao__interno">
+
+            <h1 class="cartao__titulo">{{ item.nomeAluno }}</h1>
+
+            @if (item.aluno; as aluno) {
+              <dl class="ficha">
+                <div class="ficha__campo ficha__campo--horizontal">
+                  <dt>Estágio:</dt>
+                  <dd>{{ aluno.estagio || '—' }}</dd>
+                </div>
+
+                @for (campo of camposFicha(); track campo.rotulo) {
+                  <div class="ficha__campo">
+                    <dt>{{ campo.rotulo }}:</dt>
+                    <dd>{{ campo.valor || '—' }}</dd>
+                  </div>
+                }
+              </dl>
+            } @else {
+              <p class="ficha__ausente">Sem ficha na anamnese.</p>
+            }
+
+            <hr class="cartao__divisoria" />
+
+            <form class="sessao" [formGroup]="formulario" (ngSubmit)="salvar()" novalidate>
+              <div class="notas">
+                @for (nota of notas; track nota) {
+                  <div class="nota">
+                    <app-botao [ativo]="aberto()[nota]" (click)="alternar(nota)">
+                      {{ nota.toUpperCase() }}
+                    </app-botao>
+
+                    @if (aberto()[nota]) {
+                      <app-campo
+                        class="nota__campo"
+                        tipo="numerico"
+                        [rotulo]="nota.toUpperCase()"
+                        [formControlName]="nota"
+                        autocomplete="off" />
+                    } @else if (registrado()[nota] !== null) {
+                      <p class="nota__valor">
+                        <span class="apenas-leitor">{{ nota.toUpperCase() }} registrado:</span>
+                        {{ registrado()[nota] }}
+                      </p>
+                    }
+                  </div>
+                }
+              </div>
+
+              @if (salvarVisivel()) {
+                <div class="acao">
+                  <app-botao tipo="submit" [carregando]="salvando()" textoCarregando="Salvando">
+                    Salvar
+                  </app-botao>
+                </div>
+              }
+            </form>
+
+            @if (retorno(); as retorno) {
+              <p
+                class="retorno"
+                [class.retorno--erro]="retorno.tipo === 'erro'"
+                [attr.role]="retorno.tipo === 'erro' ? 'alert' : 'status'">
+                {{ retorno.texto }}
+              </p>
+            }
+          </div>
+        </section>
+      }
+    }
+  }
+</main>
