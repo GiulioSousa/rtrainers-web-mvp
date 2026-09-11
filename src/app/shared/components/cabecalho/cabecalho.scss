@@ -13,6 +13,33 @@
   background: var(--cor-superficie);
 }
 
+.cabecalho__inicio {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+}
+
+/*
+ * Area de toque de 48px sem empurrar a marca: as margens negativas devolvem o
+ * espaco, e a seta cai onde o print a desenha, com a marca a 40px da borda.
+ */
+.cabecalho__voltar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  margin: 0 -8px 0 -12px;
+  color: var(--cor-texto-primario);
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Sem clip-path aqui: o outline de foco aparece normalmente. */
+.cabecalho__voltar:focus-visible {
+  outline: 2px solid var(--cor-primaria);
+  outline-offset: -8px;
+}
+
 .cabecalho__marca {
   flex-shrink: 0;
 }
