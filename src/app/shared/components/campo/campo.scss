@@ -113,6 +113,14 @@
   color: var(--cor-texto-primario);
 }
 
+/* Alinhado ao rotulo: mesmo recuo e mesmo tamanho. */
+.campo__apoio {
+  margin: var(--espaco-1) 0 0;
+  padding-left: var(--espaco-1);
+  font-size: var(--texto-xs);
+  color: var(--cor-texto-secundario);
+}
+
 /*
  * ESTADO DE ERRO — por ultimo, de proposito. As classes ng-touched e ng-invalid
  * sao aplicadas pelo Angular no host. A regra de rotulo empata em
@@ -126,4 +134,8 @@
 
 :host(.ng-touched.ng-invalid) .campo__caixa {
   background: var(--cor-erro);
+}
+
+:host(.ng-touched.ng-invalid) .campo__apoio {
+  color: var(--cor-erro);
 }

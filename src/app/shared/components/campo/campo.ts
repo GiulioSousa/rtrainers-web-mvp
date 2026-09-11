@@ -35,7 +35,14 @@ export class Campo implements ControlValueAccessor {
   /** Repassado como inputmode: ajusta o teclado virtual no celular. */
   readonly modoTeclado = input<string>();
 
+  /**
+   * Texto de apoio sob a caixa, para regra que o usuario precisa saber antes
+   * de errar (ex.: tamanho minimo da senha — D9). Fica vermelho no erro.
+   */
+  readonly apoio = input<string>();
+
   protected readonly id = `campo-${++proximoId}`;
+  protected readonly idApoio = `${this.id}-apoio`;
   protected readonly valor = signal('');
   protected readonly desabilitado = signal(false);
   protected readonly senhaVisivel = signal(false);

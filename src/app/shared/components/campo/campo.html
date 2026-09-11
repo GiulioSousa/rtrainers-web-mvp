@@ -19,6 +19,7 @@
       [attr.autocomplete]="autocomplete()"
       [attr.inputmode]="modoTecladoEfetivo()"
       [attr.maxlength]="numerico() ? 2 : null"
+      [attr.aria-describedby]="apoio() ? idApoio : null"
       (input)="aoDigitar($event)"
       (blur)="aoSair()" />
 
@@ -41,4 +42,9 @@
       </button>
     }
   </div>
+
+  <!-- O id e interno ao Campo: so daqui da para ligar o aria-describedby. -->
+  @if (apoio(); as texto) {
+    <p class="campo__apoio" [id]="idApoio">{{ texto }}</p>
+  }
 </div>
