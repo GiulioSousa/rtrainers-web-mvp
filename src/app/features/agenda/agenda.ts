@@ -11,7 +11,8 @@ import { Cabecalho } from '../../shared/components/cabecalho/cabecalho';
 import { CardAluno } from '../../shared/components/card-aluno/card-aluno';
 import { CardTurno } from '../../shared/components/card-turno/card-turno';
 import { Carregando } from '../../shared/components/carregando/carregando';
-import { GrupoTurno, agruparPorTurno, formatarHorario, paraDataIso } from './agrupar-agenda';
+import { formatarHorario, paraDataIso } from '../../shared/utils/formatacao-agenda';
+import { GrupoTurno, agruparPorTurno } from './agrupar-agenda';
 
 type EstadoAgenda = 'carregando' | 'pronta' | 'erro';
 

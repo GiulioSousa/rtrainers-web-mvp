@@ -1,5 +1,14 @@
 import { Aluno } from './aluno.model';
 
+/** Identifica um aluno na agenda: e a chave que vai na rota do Detalhe. */
+export interface ChaveAgenda {
+  /** ISO, yyyy-MM-dd. */
+  data: string;
+  /** Exatamente como veio na Agenda, ex: "07H". */
+  horario: string;
+  nomeAluno: string;
+}
+
 /** Espelha AgendaDTO da API (GET /professor/agenda/{nomeProfessor}). */
 export interface Agenda {
   nomeAluno: string;
