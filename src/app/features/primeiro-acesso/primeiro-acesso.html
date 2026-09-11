@@ -1,0 +1,44 @@
+<main class="primeiro-acesso">
+
+  <img
+    class="primeiro-acesso__marca"
+    src="logo-brasao.svg"
+    alt="Studio R Trainers - Elite Fitness"
+    width="204"
+    height="201" />
+
+  <form class="cartao" [formGroup]="formulario" (ngSubmit)="enviar()" novalidate>
+
+    <app-campo
+      rotulo="E-mail"
+      tipo="email"
+      formControlName="email"
+      autocomplete="username"
+      modoTeclado="email" />
+
+    <app-campo
+      rotulo="Senha temporária"
+      tipo="senha"
+      formControlName="senhaTmp"
+      autocomplete="one-time-code" />
+
+    <!-- D9: a regra dos 8 caracteres aparece antes do envio, nao so no erro. -->
+    <app-campo
+      rotulo="Nova senha"
+      tipo="senha"
+      formControlName="novaSenha"
+      autocomplete="new-password"
+      apoio="Mínimo de 8 caracteres." />
+
+    @if (mensagemErro(); as erro) {
+      <p class="erro" role="alert">{{ erro }}</p>
+    }
+
+    <div class="acao">
+      <app-botao tipo="submit" [carregando]="carregando()" textoCarregando="Criando">
+        Criar
+      </app-botao>
+    </div>
+
+  </form>
+</main>
