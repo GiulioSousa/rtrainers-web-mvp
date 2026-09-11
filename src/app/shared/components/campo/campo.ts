@@ -1,4 +1,4 @@
-import { Component, computed, forwardRef, input, signal } from '@angular/core';
+import { Component, ElementRef, computed, forwardRef, input, signal, viewChild } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 let proximoId = 0;
@@ -24,10 +24,11 @@ export class Campo implements ControlValueAccessor {
   readonly rotulo = input.required<string>();
 
   /**
-   * 'senha' ganha o botao de alternar visibilidade.
-   * A variante 'numerico' entra quando a tela de Detalhe do Aluno a exigir.
+   * 'senha' ganha o botao de alternar visibilidade. 'numerico' (PSR e PSE)
+   * nao mostra rotulo — ele vira so o nome acessivel —, centraliza o valor e
+   * abre o teclado numerico.
    */
-  readonly tipo = input<'texto' | 'email' | 'senha'>('texto');
+  readonly tipo = input<'texto' | 'email' | 'senha' | 'numerico'>('texto');
 
   readonly autocomplete = input<string>();
 
@@ -40,6 +41,11 @@ export class Campo implements ControlValueAccessor {
   protected readonly senhaVisivel = signal(false);
 
   protected readonly preenchido = computed(() => this.valor() !== '');
+  protected readonly numerico = computed(() => this.tipo() === 'numerico');
+
+  protected readonly modoTecladoEfetivo = computed(
+    () => this.modoTeclado() ?? (this.numerico() ? 'numeric' : null)
+  );
 
   protected readonly tipoNativo = computed(() => {
     switch (this.tipo()) {
@@ -52,8 +58,15 @@ export class Campo implements ControlValueAccessor {
     }
   });
 
+  private readonly entrada = viewChild.required<ElementRef<HTMLInputElement>>('entrada');
+
   private aoMudar: (valor: string) => void = () => {};
   private aoTocar: () => void = () => {};
+
+  /** Para campos abertos sob demanda: PSR e PSE recebem o foco ao abrir. */
+  focar(): void {
+    this.entrada().nativeElement.focus();
+  }
 
   writeValue(valor: string | null): void {
     this.valor.set(valor ?? '');

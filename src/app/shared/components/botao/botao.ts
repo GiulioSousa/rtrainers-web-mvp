@@ -5,7 +5,8 @@ import { Component, booleanAttribute, input } from '@angular/core';
   templateUrl: './botao.html',
   styleUrl: './botao.scss',
   host: {
-    '[class.botao--desabilitado]': 'desabilitado()'
+    '[class.botao--desabilitado]': 'desabilitado()',
+    '[class.botao--ativo]': 'ativo()'
   }
 })
 export class Botao {
@@ -25,4 +26,10 @@ export class Botao {
 
   /** Anunciado a leitores de tela enquanto o spinner ocupa o lugar do texto. */
   readonly textoCarregando = input('Carregando');
+
+  /**
+   * Botao de alternancia (PSR e PSE no Detalhe): true/false vira aria-pressed
+   * e o estado active persistente. null, o padrao, e um botao comum.
+   */
+  readonly ativo = input<boolean | null>(null);
 }

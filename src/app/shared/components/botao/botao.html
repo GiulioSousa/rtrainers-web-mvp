@@ -5,7 +5,8 @@
   [type]="tipo()"
   [disabled]="desabilitado()"
   [attr.aria-busy]="carregando() || null"
-  [attr.aria-disabled]="carregando() || null">
+  [attr.aria-disabled]="carregando() || null"
+  [attr.aria-pressed]="ativo()">
 
   <!--
     O rotulo continua no DOM durante o carregamento, so fica invisivel:

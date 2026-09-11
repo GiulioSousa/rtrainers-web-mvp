@@ -78,6 +78,17 @@
   color: var(--cor-texto-secundario);
 }
 
+/*
+ * Numerico (PSR e PSE): valor centralizado e fundo --cor-fundo, porque fica
+ * aninhado num card que ja usa --cor-superficie. Digito de 24px, medido no print.
+ */
+.campo--numerico .campo__caixa input {
+  padding: 0 var(--espaco-4);
+  background: var(--cor-fundo);
+  font-size: var(--texto-xl);
+  text-align: center;
+}
+
 .campo--desabilitado .campo__caixa input {
   background: var(--cor-desabilitado);
   color: rgb(255 255 255 / 0.6);

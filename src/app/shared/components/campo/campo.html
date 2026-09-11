@@ -2,19 +2,23 @@
   class="campo"
   [class.campo--preenchido]="preenchido()"
   [class.campo--senha]="tipo() === 'senha'"
+  [class.campo--numerico]="numerico()"
   [class.campo--desabilitado]="desabilitado()">
 
-  <label class="campo__rotulo" [attr.for]="id">{{ rotulo() }}</label>
+  <!-- No numerico o rotulo sai da tela mas continua sendo o nome acessivel. -->
+  <label class="campo__rotulo" [class.apenas-leitor]="numerico()" [attr.for]="id">{{ rotulo() }}</label>
 
   <div class="campo__caixa">
     <input
+      #entrada
       [id]="id"
       [type]="tipoNativo()"
       [value]="valor()"
-      [placeholder]="rotulo()"
+      [attr.placeholder]="numerico() ? null : rotulo()"
       [disabled]="desabilitado()"
       [attr.autocomplete]="autocomplete()"
-      [attr.inputmode]="modoTeclado()"
+      [attr.inputmode]="modoTecladoEfetivo()"
+      [attr.maxlength]="numerico() ? 2 : null"
       (input)="aoDigitar($event)"
       (blur)="aoSair()" />
 

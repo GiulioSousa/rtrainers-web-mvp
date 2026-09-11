@@ -15,7 +15,8 @@
   filter: none;
 }
 
-:host(.botao--desabilitado) {
+:host(.botao--desabilitado),
+:host(.botao--ativo) {
   filter: none;
 }
 
@@ -49,6 +50,14 @@
 }
 
 .botao:active:not(:disabled) {
+  background: color-mix(in srgb, var(--cor-primaria) 76%, var(--cor-acento));
+}
+
+/*
+ * Botao de alternancia ligado (PSR e PSE com o input aberto): o estado active
+ * do design, so que persistente. Vence o hover pela especificidade.
+ */
+:host(.botao--ativo) .botao:not(:disabled) {
   background: color-mix(in srgb, var(--cor-primaria) 76%, var(--cor-acento));
 }
 
