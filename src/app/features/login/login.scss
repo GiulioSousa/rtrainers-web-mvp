@@ -40,7 +40,8 @@
 /* ---------- Mensagens ---------- */
 
 .erro,
-.aviso {
+.aviso,
+.sucesso {
   margin: 0;
   font-size: var(--texto-sm);
 }
@@ -52,6 +53,11 @@
 /* Sessao expirada nao e falha de credencial: alerta, nao erro — B9. */
 .aviso {
   color: var(--cor-alerta);
+}
+
+/* A senha foi criada no Primeiro Acesso; so a entrada automatica falhou. */
+.sucesso {
+  color: var(--cor-sucesso);
 }
 
 /* ---------- Acao ---------- */

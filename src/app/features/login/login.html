@@ -26,6 +26,10 @@
       <p class="aviso">Sua sessão expirou. Entre novamente.</p>
     }
 
+    @if (senhaCriada()) {
+      <p class="sucesso" role="status">Senha criada. Entre com a nova senha.</p>
+    }
+
     @if (mensagemErro(); as erro) {
       <p class="erro" role="alert">{{ erro }}</p>
     }

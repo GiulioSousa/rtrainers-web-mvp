@@ -34,6 +34,11 @@ export class PaginaLogin {
     this.rota.snapshot.queryParamMap.get('sessaoExpirada') === 'true'
   );
 
+  /** Vem do Primeiro Acesso quando a senha foi criada mas a entrada automatica falhou. */
+  readonly senhaCriada = signal(
+    this.rota.snapshot.queryParamMap.get('senhaCriada') === 'true'
+  );
+
   enviar(): void {
     if (this.carregando()) {
       return;
@@ -47,6 +52,7 @@ export class PaginaLogin {
     this.carregando.set(true);
     this.mensagemErro.set(null);
     this.sessaoExpirada.set(false);
+    this.senhaCriada.set(false);
 
     this.autenticacao.entrar(this.formulario.getRawValue()).subscribe({
       next: () => {
